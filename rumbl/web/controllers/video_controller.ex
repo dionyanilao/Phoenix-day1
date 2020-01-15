@@ -67,4 +67,16 @@ def update(conn, %{"id" => id, "video" => video_params}, user) do
     render(conn, "edit.html", video: video, changeset: changeset)
   end
 end
+
+alias Rumbl.Category
+  plug :load_categories when action in [:new, :create, :edit, :update]
+  defp load_categories(conn, _) do
+    query =
+    Category
+    |> Category.alphabetical
+    |> Category.names_and_ids
+    categories = Repo.all query
+    assign(conn, :categories, categories)
+end
+
 end
