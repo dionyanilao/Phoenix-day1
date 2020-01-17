@@ -3,8 +3,10 @@ defmodule Rumbl.VideoTest do
 
   alias Rumbl.Video
 
-  @valid_attrs %{description: "some content", title: "some content", url: "some content"}
+
   @invalid_attrs %{}
+  @valid_attrs %{url: "some content", description: "some content", title: "some content"}
+
 
   test "changeset with valid attributes" do
     changeset = Video.changeset(%Video{}, @valid_attrs)
@@ -13,6 +15,7 @@ defmodule Rumbl.VideoTest do
 
   test "changeset with invalid attributes" do
     changeset = Video.changeset(%Video{}, @invalid_attrs)
-    refute changeset.valid?
+    assert changeset.valid?
+
   end
 end

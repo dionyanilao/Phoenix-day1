@@ -33,13 +33,14 @@ def create(conn, %{"video" => video_params}, user) do
     user
     |> build_assoc(:videos)
     |> Video.changeset(video_params)
+
   case Repo.insert(changeset) do
     {:ok, _video} ->
-    conn
-    |> put_flash(:info, "Video created successfully.")
-    |> redirect(to: video_path(conn, :index))
+      conn
+      |> put_flash(:info, "Video created successfully.")
+      |> redirect(to: video_path(conn, :index))
     {:error, changeset} ->
-    render(conn, "new.html", changeset: changeset)
+      render(conn, "new.html", changeset: changeset)
     end
  end
 def index(conn, _params, user) do
